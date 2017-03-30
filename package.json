@@ -1,0 +1,26 @@
+{
+  "name": "charprovider",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Marcel Rösler",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.15.2",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BelphegorPrime/charProvider.git"
+  },
+  "keywords": [
+    "DSA"
+  ],
+  "bugs": {
+    "url": "https://github.com/BelphegorPrime/charProvider/issues"
+  },
+  "homepage": "https://github.com/BelphegorPrime/charProvider#readme"
+}
