@@ -4,12 +4,22 @@
   "description": "",
   "author": "Marcel Rösler",
   "main": "index.js",
+  "scripts": {
+    "lint": "eslint server.js",
+    "start": "babel-node ./bin/www",
+    "auto-start": "nodemon --exec \"npm run lint && npm start\" --ignore public/js"
+  },
   "dependencies": {
     "express": "^4.15.2",
     "moment": "^2.18.1",
     "xml2js": "^0.4.17"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-eslint": "^4.0.10",
+    "eslint": "^1.1.0",
+    "nodemon": "^1.4.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
