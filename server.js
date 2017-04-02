@@ -4,8 +4,19 @@ let moment = require('moment');
 let parseString = require('xml2js').parseString;
 let http = require('http');
 let https = require('https');
+let basicAuth = require('basic-auth');
 
 let server = express();
+
+let auth = (req, res, next)=> {
+    let user = basicAuth(req);
+    if (!user || !user.name || !user.pass || (user.name !== 'dsa' && user.pass !== 'asd')) {
+        res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+        return res.sendStatus(401);
+    }else {
+        return next();
+    }
+};
 
 server.get('/',  (req, res)=> {
     console.time('handler name');
@@ -14,7 +25,7 @@ server.get('/',  (req, res)=> {
     console.timeEnd('handler name');
 })
 
-server.get('/beowulf',  (req, res)=> {
+server.get('/beowulf',auth,  (req, res)=> {
     console.time('beowulf');
     fs.readFile('/home/pi/charakters/BeowulfLingardson.xml', 'utf8',  (err,data)=> {
         if (err) {
@@ -27,7 +38,7 @@ server.get('/beowulf',  (req, res)=> {
     });
 });
 
-server.get('/lidda',  (req, res)=> {
+server.get('/lidda',auth,  (req, res)=> {
     console.time('lidda');
     fs.readFile('/home/pi/charakters/LiddaDarben.xml', 'utf8',  (err,data)=> {
         if (err) {
@@ -40,7 +51,7 @@ server.get('/lidda',  (req, res)=> {
     });
 });
 
-server.get('/sergio',  (req, res)=> {
+server.get('/sergio',auth,  (req, res)=> {
     console.time('sergio');
     fs.readFile('/home/pi/charakters/SergioSartanas.xml', 'utf8',  (err,data)=> {
         if (err) {
@@ -53,7 +64,7 @@ server.get('/sergio',  (req, res)=> {
     });
 });
 
-server.get('/trollwulf', (req, res)=>{
+server.get('/trollwulf',auth, (req, res)=>{
     console.time('trollwulf');
     fs.readFile('/home/pi/charakters/TrollwulfAnsgarson.xml', 'utf8',  (err,data)=> {
         if (err) {
@@ -66,7 +77,7 @@ server.get('/trollwulf', (req, res)=>{
     });
 });
 
-server.get('/ifrit', (req, res)=>{
+server.get('/ifrit',auth, (req, res)=>{
     console.time('ifrit');
     fs.readFile('/home/pi/charakters/IfritbenHaschmada.xml', 'utf8', (err,data)=>{
         if (err) {
@@ -79,7 +90,7 @@ server.get('/ifrit', (req, res)=>{
     });
 });
 
-server.get('/mugrom', (req, res)=>{
+server.get('/mugrom',auth, (req, res)=>{
     console.time('mugrom');
     fs.readFile('/home/pi/charakters/MugromgroschoJandidid.xml', 'utf8', (err,data)=>{
         if (err) {
@@ -92,7 +103,7 @@ server.get('/mugrom', (req, res)=>{
     });
 });
 
-server.get('/sumin', (req, res)=>{
+server.get('/sumin',auth, (req, res)=>{
     console.time('sumin');
     fs.readFile('/home/pi/charakters/SuminKomar.xml', 'utf8', (err,data)=>{
         if (err) {
@@ -105,7 +116,7 @@ server.get('/sumin', (req, res)=>{
     });
 });
 
-server.get('/all', (req, res)=>{
+server.get('/all',auth, (req, res)=>{
     console.time('all');
     fs.readdir('/home/pi/charakters/', (err, files) => {
         let all = [];
